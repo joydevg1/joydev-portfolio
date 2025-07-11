@@ -1,0 +1,293 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joydev Ghosh - AI Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #00ff00;
+            margin-top: 10px;
+        }
+        nav {
+            background-color: #004d99;
+            padding: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #00ff00;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-left: 5px solid #00ff00;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #003366;
+            margin-bottom: 10px;
+        }
+        .section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .section ul li {
+            margin: 5px 0;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill {
+            background-color: #e0f0ff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+        .ai-chat {
+            margin: 20px 0;
+        }
+        .ai-chat input {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .ai-chat button {
+            padding: 10px 20px;
+            background-color: #004d99;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .ai-chat button:hover {
+            background-color: #003366;
+        }
+        .ai-response {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: none;
+        }
+        .contact {
+            text-align: center;
+            padding: 20px;
+            background-color: #004d99;
+            color: white;
+        }
+        .contact a {
+            color: #00ff00;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .section {
+                margin: 10px 0;
+                padding: 10px;
+            }
+            .ai-chat input {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Joydev Ghosh</h1>
+        <p><strong>AI Research Professional</strong> | Bangalore, India</p>
+        <img src="C:\Users\chira\Downloads\My_Photo.jpg" alt="Joydev Ghosh" onerror="this.style.display='none';">
+        <p>Last Updated: July 11, 2025, 10:50 PM IST</p>
+    </header>
+
+    <nav>
+        <a href="#overview">Overview</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <div id="overview" class="section">
+            <h2>Professional Overview</h2>
+            <p>A seasoned AI research professional with over 4 years of experience in <strong>Machine Learning</strong>, <strong>Deep Learning</strong>, and <strong>Computer Vision</strong>. Skilled in <strong>PyTorch</strong>, <strong>Keras</strong>, and <strong>TensorFlow</strong>, I specialize in crafting <strong>AI-driven solutions</strong> for business and geopolitical challenges. Passionate about advancing <strong>GenAI</strong>, <strong>NLP</strong>, and <strong>Cloud Computing</strong> to deliver innovative results.</p>
+        </div>
+
+        <div id="projects" class="section">
+            <h2>Key Projects</h2>
+            <ul>
+                <li><strong>Big Data Analytics Software for COMINT</strong> - Developed and deployed <strong>Deep Learning models</strong> using <strong>PyTorch</strong> and <strong>Keras</strong> for image classification, enhancing efficiency by 30%.</li>
+                <li><strong>ANPR and Vehicle Classification Software</strong> - Designed <strong>YOLO-based Computer Vision models</strong> with <strong>OpenCV</strong>, achieving 95% accuracy for smart city traffic regulation.</li>
+                <li><strong>iFarmer-App</strong> - Created an AI-driven app using <strong>TensorFlow</strong> for plant disease prediction, boosting productivity by 20%.</li>
+            </ul>
+        </div>
+
+        <div id="experience" class="section">
+            <h2>Professional Experience</h2>
+            <p><strong>Member (Research Staff)</strong> - Bharat Electronics Limited, Bangalore, India | Sept 2018 - Mar 2023</p>
+            <ul>
+                <li>Led a team of 3 to deliver COMINT and ANPR projects on schedule.</li>
+                <li>Managed <strong>GPU server</strong> setup for <strong>AI/ML</strong> workloads.</li>
+                <li>Conducted training on <strong>Deep Learning</strong> and <strong>NLP</strong>.</li>
+            </ul>
+        </div>
+
+        <div id="skills" class="section">
+            <h2>Technical Skills</h2>
+            <div class="skills">
+                <span class="skill">Python</span>
+                <span class="skill">TensorFlow</span>
+                <span class="skill">PyTorch</span>
+                <span class="skill">Keras</span>
+                <span class="skill">OpenCV</span>
+                <span class="skill">Machine Learning</span>
+                <span class="skill">Deep Learning</span>
+                <span class="skill">Computer Vision</span>
+                <span class="skill">GenAI</span>
+                <span class="skill">NLP</span>
+                <span class="skill">AWS</span>
+                <span class="skill">Git</span>
+            </div>
+        </div>
+
+        <div id="achievements" class="section">
+            <h2>Achievements</h2>
+            <ul>
+                <li>Secured 722 (938 AIR) in <strong>GATE 2025</strong></li>
+                <li>Training and Placement Rep, MNNIT Allahabad, 2018</li>
+                <li>Secured 713 (632 AIR) in <strong>GATE 2016</strong></li>
+            </ul>
+        </div>
+
+        <div class="section ai-chat">
+            <h2>Ask Me Anything</h2>
+            <input type="text" id="aiInput" placeholder="e.g., Tell me about your projects">
+            <button onclick="getAIResponse()">Get Response</button>
+            <div id="aiResponse" class="ai-response"></div>
+        </div>
+
+        <div id="contact" class="section contact">
+            <h2>Contact Me</h2>
+            <p>Email: <a href="mailto:ghoshjoydev123@gmail.com">ghoshjoydev123@gmail.com</a></p>
+            <p>Phone: <a href="tel:+917549535543">+91 7549535543</a></p>
+            <p>Connect: <a href="https://linkedin.com/in/joydev-ghosh-48293396/">LinkedIn</a> | <a href="https://github.com/joydevg1">GitHub</a> | <a href="https://medium.com/@joydev123">Medium</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Mock AI agent data (simulated responses)
+        const aiKnowledge = {
+            "projects": "I’ve worked on projects like Big Data Analytics for COMINT using PyTorch and Keras, ANPR with YOLO and OpenCV, and iFarmer-App with TensorFlow for plant disease prediction.",
+            "experience": "I served as a Member (Research Staff) at Bharat Electronics Limited from 2018 to 2023, leading AI/ML projects and training teams on Deep Learning and NLP.",
+            "skills": "My skills include Python, TensorFlow, PyTorch, Keras, OpenCV, Machine Learning, Deep Learning, Computer Vision, GenAI, NLP, AWS, and Git.",
+            "achievements": "I secured 722 (938 AIR) in GATE 2025 and 713 (632 AIR) in GATE 2016, and was a Training and Placement Rep at MNNIT Allahabad in 2018.",
+            "default": "Please ask about my projects, experience, skills, or achievements! For example, 'Tell me about your projects'."
+        };
+
+        function getAIResponse() {
+            const input = document.getElementById('aiInput').value.toLowerCase().trim();
+            const responseDiv = document.getElementById('aiResponse');
+            let response = "";
+
+            if (input.includes("project") || input.includes("work")) {
+                response = aiKnowledge["projects"];
+            } else if (input.includes("experience")) {
+                response = aiKnowledge["experience"];
+            } else if (input.includes("skill")) {
+                response = aiKnowledge["skills"];
+            } else if (input.includes("achieve")) {
+                response = aiKnowledge["achievements"];
+            } else {
+                response = aiKnowledge["default"];
+            }
+
+            responseDiv.innerHTML = `<strong>AI Response:</strong> ${response}`;
+            responseDiv.style.display = "block";
+            document.getElementById('aiInput').value = ""; // Clear input
+        }
+
+        // Add Enter key support
+        document.getElementById('aiInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getAIResponse();
+            }
+        });
+    </script>
+</body>
+</html>
