@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Joydev Ghosh - AI Research Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>emailjs.init("qk6gSkuPb_k4qosId");</script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #f4f7fa 0%, #e8ecef 100%);
+      color: #1f2937;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(90deg, #003366 0%, #004d99 100%);
+      color: white;
+      text-align: center;
+      padding: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid #34d058;
+      margin: 1rem auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    header img:hover {
+      transform: scale(1.05);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin: 0.5rem 0;
+    }
+    header p:last-child {
+      font-size: 0.9rem;
+      color: #d1d5db;
+    }
+    nav {
+      background: #004d99;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #34d058;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+    .section {
+      background: white;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 5px solid #34d058;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    }
+    .section h2 {
+      color: #003366;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .section p, .section ul {
+      font-size: 1rem;
+      color: #374151;
+    }
+    .section ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+    }
+    .section ul li {
+      margin: 0.5rem 0;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .skill {
+      background: #d1e7ff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1f2937;
+      transition: background 0.3s ease;
+    }
+    .skill:hover {
+      background: #a3bffa;
+    }
+    .contact {
+      text-align: center;
+      padding: 2rem;
+      background: #004d99;
+      color: white;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+    .contact a {
+      color: #34d058;
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .contact a:hover {
+      color: #ffffff;
+    }
+    .ai-chat {
+      padding: 1.5rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .ai-chat h2 {
+      color: #003366;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .ai-chat input {
+      width: 70%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .ai-chat input:focus {
+      outline: none;
+      border-color: #004d99;
+      box-shadow: 0 0 0 3px rgba(0, 77, 153, 0.1);
+    }
+    .ai-chat button {
+      padding: 12px 24px;
+      margin-left: 10px;
+      background: #004d99;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .ai-chat button:hover {
+      background: #003366;
+      transform: translateY(-2px);
+    }
+    #chatHistory {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 15px;
+      border: 1px solid #e5e7eb;
+    }
+    .user-msg, .ai-msg {
+      margin: 12px 0;
+      padding: 12px 18px;
+      border-radius: 12px;
+      max-width: 80%;
+      clear: both;
+      font-size: 0.95rem;
+    }
+    .user-msg {
+      background: #d1e7ff;
+      float: right;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .ai-msg {
+      background: #f1f3f5;
+      float: left;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #emailPrompt {
+      display: none;
+      margin-top: 15px;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: #fff;
+      margin: 10% auto;
+      padding: 24px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+      border: 1px solid #e5e7eb;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .close {
+      color: #6b7280;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .close:hover {
+      color: #dc2626;
+    }
+    .send-mail-btn {
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #28a745 0%, #34d058 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .send-mail-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+    #mailSuccessMsg {
+      color: #15803d;
+      margin-top: 12px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    .modal-content h3 {
+      margin: 0 0 20px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1f2937;
+      text-align: center;
+    }
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #004d99;
+      box-shadow: 0 0 0 3px rgba(0, 77, 153, 0.1);
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      .section, .ai-chat {
+        margin: 1rem 0;
+        padding: 1rem;
+      }
+      header img {
+        width: 100px;
+        height: 100px;
+      }
+      header h1 {
+        font-size: 1.8rem;
+      }
+      nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+      .ai-chat input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .ai-chat button {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Joydev Ghosh</h1>
+  <p>AI Research Professional | Kolkata, India</p>
+  <img src="profile.jpg" alt="Joydev Ghosh" onerror="this.style.display='none';" />
+  <p>Last Updated: July 11, 2025</p>
+</header>
+
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
+  <a href="#achievements">Achievements</a>
+  <a href="#chat">Ask Me Anything</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+  <section id="overview" class="section">
+    <h2>Professional Overview</h2>
+    <p>
+      A seasoned AI research professional with over 4 years of experience in <strong>Machine Learning</strong>, <strong>Deep Learning</strong>, and <strong>Computer Vision</strong>. Skilled in <strong>PyTorch</strong>, <strong>Keras</strong>, and <strong>TensorFlow</strong>, I specialize in crafting <strong>AI-driven solutions</strong> for business and geopolitical challenges. Passionate about advancing <strong>GenAI</strong>, <strong>NLP</strong>, and <strong>Cloud Computing</strong> to deliver innovative results.
+    </p>
+  </section>
+
+  <section id="projects" class="section">
+    <h2>Key Projects</h2>
+    <ul>
+      <li><strong>Big Data Analytics Software for COMINT</strong> – Deployed <strong>PyTorch</strong>/<strong>Keras</strong> deep learning models for image classification, boosting efficiency by 30%.</li>
+      <li><strong>ANPR and Vehicle Classification</strong> – Built <strong>YOLO/OpenCV</strong>-based system for traffic analysis with 95% accuracy.</li>
+      <li><strong>iFarmer-App</strong> – Developed an AI model in <strong>TensorFlow</strong> for plant disease detection, improving yield by 20%.</li>
+    </ul>
+  </section>
+
+  <section id="experience" class="section">
+    <h2>Professional Experience</h2>
+    <p><strong>Member (Research Staff)</strong> – Bharat Electronics Limited, Bangalore, India | Sept 2018 – Mar 2023</p>
+    <ul>
+      <li>Led a team of 3 to deliver AI-driven projects including COMINT and ANPR systems.</li>
+      <li>Managed <strong>GPU server</strong> infrastructure for AI/ML workloads.</li>
+      <li>Conducted internal training on <strong>Deep Learning</strong> and <strong>NLP</strong>.</li>
+    </ul>
+  </section>
+
+  <section id="education" class="section">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>M.Tech in Computer Science, CGPA: 8.5</strong> – MNNIT Allahabad (2016–2018)</li>
+      <li><strong>B.E. in CSE, CGPA: 80.8%</strong> – UIT, Burdwan University (2011–2015)</li>
+      <li><strong>Class XII, CGPA: 85.66%</strong> – D.A.V. Public School, Dhanbad (2009–2011)</li>
+      <li><strong>Class X, CGPA: 88.83%</strong> – D.A.V. Public School, Dhanbad (2009)</li>
+    </ul>
+  </section>
+
+  <section id="skills" class="section">
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <span class="skill">Python</span>
+      <span class="skill">TensorFlow</span>
+      <span class="skill">PyTorch</span>
+      <span class="skill">Keras</span>
+      <span class="skill">OpenCV</span>
+      <span class="skill">Machine Learning</span>
+      <span class="skill">Deep Learning</span>
+      <span class="skill">Computer Vision</span>
+      <span class="skill">GenAI</span>
+      <span class="skill">NLP</span>
+      <span class="skill">AWS</span>
+      <span class="skill">Git</span>
+    </div>
+  </section>
+  <section id="achievements" class="section">
+    <h2>Achievements</h2>
+    <ul>
+      <li>Secured 722 (AIR: 938) in <strong>GATE 2025</strong></li>
+      <li>Training & Placement Representative, MNNIT Allahabad (2018)</li>
+      <li>Secured 713 (AIR: 632) in <strong>GATE 2016</strong></li>
+    </ul>
+  </section>
+
+  <section id="publications" class="section">
+    <h2>Publication</h2>
+    <ul>
+      <li>Extractive Summarization of a Document using Weighted Multi-Lexical Chain, <i>International Journal on Natural Language Computing (IJNLC)(Accepted)</i></li>
+      <li>Feature Extraction and Classification of Colon Cancer Using a Hybrid Approach of Supervised and Unsupervised Learning, <i>Advanced Machine Learning Approaches in Cancer Prognosis (SPRINGER) (Published)</i></li>
+      <li>Features Extraction for Network Intrusion Detection Using Genetic Algorithm (GA), <i>Modern Approaches in Machine Learning and Cognitive Science (Published)</i></li>
+    </ul>
+  </section>
+  
+  <section id="patents" class="section">
+    <h2>Patent</h2>
+    <p>
+      <strong>Multi-Lingual Translator Using Deep Learning Mounted on Edge Device</strong>, <italic>application_no : 202141013413, (Published 2024)</italic>
+	 </p> 
+  </section>
+
+  <section id="chat" class="ai-chat">
+    <h2>Ask Me Anything</h2>
+    <div>
+      <input type="text" id="aiInput" placeholder="e.g. What is your experience?" />
+      <button onclick="getAIResponse()">Send</button>
+    </div>
+    <div id="chatHistory"></div>
+    <div id="emailPrompt">
+      <label for="userEmail">Your Email:</label>
+      <input type="email" id="userEmail" placeholder="you@example.com" />
+      <button onclick="sendConversation()">Submit</button>
+    </div>
+  </section>
+
+  <section class="ai-email">
+    <button onclick="openSendMailModal()" class="send-mail-btn">📩 Send Mail</button>
+    <div id="sendMailModal" class="modal">
+      <div class="modal-content">
+        <span onclick="closeSendMailModal()" class="close">×</span>
+        <h3>Send Your Query to Joydev</h3>
+        <form id="emailForm">
+          
+          <div class="field">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="field">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message" required></textarea>
+          </div>
+          <div class="field">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <input type="submit" value="Send Email" class="send-mail-btn" />
+        </form>
+        <div id="mailSuccessMsg"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:ghoshjoydev123@gmail.com">ghoshjoydev123@gmail.com</a></p>
+    <p>Phone: <a href="tel:+917549535543">+91 7549535543</a></p>
+    <p>
+      Connect:
+      <a href="https://linkedin.com/in/joydev-ghosh-48293396/">LinkedIn</a> |
+      <a href="https://github.com/joydevg1">GitHub</a> |
+      <a href="https://medium.com/@joydev123">Medium</a>
+    </p>
+  </section>
+</div>
+
+<script type="module">
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+const gemini = new GoogleGenerativeAI("AIzaSyBRZiXEnkchnciIjT-FTqJX-Nrty1leJq0");
+let conversation = [];
+
+const resumeJSON = {
+  "name": "Joydev Ghosh",
+  "contact": {
+    "email": "ghoshjoydev123@gmail.com",
+    "phone": "+91 7549535543",
+    "address": "Bangalore, India",
+    "linkedin": "https://linkedin.com/in/joydev-ghosh-48293396/",
+    "github": "https://github.com/joydevg1",
+    "medium": "https://medium.com/@joydev123"
+  },
+  "summary": "A seasoned AI research professional with over 4 years of experience in Machine Learning, Deep Learning, and Computer Vision. Skilled in PyTorch, Keras, and TensorFlow, I specialize in crafting AI-driven solutions for business and geopolitical challenges. Passionate about advancing GenAI, NLP, and Cloud Computing to deliver innovative results.",
+  "skills": {
+    "programming": ["Python", "SQL"],
+    "frameworks": ["TensorFlow", "PyTorch", "Keras"],
+    "domains": ["Machine Learning", "Deep Learning", "CV", "GenAI", "NLP"],
+    "tools": ["Pandas", "OpenCV", "Git"],
+    "concepts": ["CNN", "RNN", "YOLO", "Transformer"]
+  },
+  "experience": [
+    {
+      "title": "Member (Research Staff)",
+      "company": "Bharat Electronics Limited",
+      "duration": "2018–2023",
+      "responsibilities": [
+        "Led team of 3 in COMINT and ANPR projects.",
+        "Setup GPU infrastructure for AI workloads."
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "title": "Extractive Summarization of a Document using Weighted Multi-Lexical Chain",
+      "journal": "International Journal on Natural Language Computing (IJNLC)",
+      "year": 2022,
+      "status": "Accepted"
+    },
+    {
+      "title": "Feature Extraction and Classification of Colon Cancer Using a Hybrid Approach of Supervised and Unsupervised Learning",
+      "book": "Advanced Machine Learning Approaches in Cancer Prognosis (SPRINGER)",
+      "isbn": "978-3-030-71974-6",
+      "year": 2021
+    },
+    {
+      "title": "Features Extraction for Network Intrusion Detection Using Genetic Algorithm (GA)",
+      "book": "Modern Approaches in Machine Learning and Cognitive Science",
+      "doi": "10.1007/978-3-030-38445-6_2",
+      "year": 2020
+    }
+  ],
+  "patents": [
+    {
+      "title": "Multi-Lingual Translator Using Deep Learning Mounted on Edge Device",
+      "application_no": "202141013413",
+      "status": "Published",
+      "year": 2024
+    }
+  ],
+  "languages": ["Hindi", "Bengali", "English"],
+  "projects": [
+    {
+      "title": "Big Data Analytics Software for COMINT",
+      "description": "Deep Learning models using PyTorch and Keras for image classification."
+    },
+    {
+      "title": "ANPR and Vehicle Classification Software",
+      "description": "YOLO + OpenCV for Automatic Number Plate Recognition."
+    },
+	{"title": "iFarmer-App",
+      "description": "Developed an AI model in TensorFlow for plant disease detection, improving yield by 20%"
+	}
+	
+  ],
+  "education": [
+    {
+      "degree": "M.Tech in Computer Science",
+      "institute": "MNNIT Allahabad",
+      "cgpa": "8.5"
+    }
+  ],
+  "certifications": ["Deep Learning, One Fourth Labs", "Python for Statistical Analysis"],
+  "achievements": [{
+    "gate 2025":"722 Score (AIR 938) in GATE 2025",
+    "gate 2016": "713 Score (AIR 632) in GATE 2016"}
+  ]
+};
+
+const sectionMap = {
+  "about yourself": "summary",
+  "experience": "experience",
+  "projects": "projects",
+  "education": "education",
+  "skills": "skills",
+  "achievements": "achievements",
+  "achievement": "achievements",
+  "gate 2016": "achievements",
+  "gate 2025": "achievements",
+  "contact": "contact",
+  "mail": "contact",
+  "phone": "contact",
+  "patent": "patents",
+  "publications": "publications",
+  "about you": "summary",
+  "is joydev ghosh": "summary",
+  "tell me about you": "summary"
+};
+
+async function getGeminiResponse(query) {
+  const model = gemini.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const result = await model.generateContent(query);
+  return result.response.text();
+}
+
+function matchSection(query) {
+  query = query.toLowerCase();
+  for (let key in sectionMap) {
+    if (query.includes(key)) return sectionMap[key];
+  }
+  return null;
+}
+
+function formatAnswer(section) {
+  const data = resumeJSON[section];
+  if (!data) return null;
+  if (typeof data === "string") return data;
+  if (Array.isArray(data)) return data.map(d => (typeof d === "string" ? `- ${d}` : `- ${Object.values(d).join(" | ")}`)).join("\n");
+  if (typeof data === "object") return Object.entries(data).map(([k, v]) => `- ${k}: ${v}`).join("\n");
+  return null;
+}
+
+async function getAIResponse() {
+  const input = document.getElementById("aiInput").value.trim();
+  const chatBox = document.getElementById("chatHistory");
+
+  if (!input) return;
+
+  chatBox.innerHTML += `<div class="user-msg"><strong>You:</strong> ${input}</div>`;
+  document.getElementById("aiInput").value = "";
+
+  const thinkId = `thinking-${Date.now()}`;
+  chatBox.innerHTML += `<div class="ai-msg" id="${thinkId}"><em>AI is thinking...</em></div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  let responseText = "";
+  const section = matchSection(input);
+
+  if (section) {
+    const result = formatAnswer(section);
+    responseText = result || "No info found.";
+  } else {
+    responseText = await getGeminiResponse(input);
+  }
+
+  const finalReply = responseText && responseText.length > 10
+    ? `<strong>AI:</strong> ${responseText.replace(/\n/g, "<br>")}`
+    : `<strong>AI:</strong> No matching answer found. Please drop your email. Joydev will get back to you.`;
+
+  document.getElementById(thinkId).outerHTML = `<div class="ai-msg">${finalReply}</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  if (responseText.includes("No matching")) {
+    document.getElementById("emailPrompt").style.display = "block";
+  }
+
+  conversation.push({ role: "user", message: input });
+  conversation.push({ role: "ai", message: responseText });
+}
+
+function sendConversation() {
+  const userEmail = document.getElementById("userEmail").value.trim();
+  if (!userEmail || !userEmail.includes("@")) {
+    alert("Please enter a valid email.");
+    return;
+  }
+
+  const history = conversation.map(c => `${c.role.toUpperCase()}: ${c.message}`).join("\n");
+  const emailParams = {
+    from_email: userEmail,
+    to_name: "Joydev Ghosh",
+    message: `User Email: ${userEmail}\n\nConversation:\n${history}`,
+    to_email: "ghoshjoydev123@gmail.com",
+    reply_to: userEmail
+  };
+
+  emailjs.send("service_0pvbpzk", "template_qdpie1q", emailParams)
+    .then(() => {
+      alert("Email sent successfully!");
+      document.getElementById("emailPrompt").style.display = "none";
+      document.getElementById("userEmail").value = "";
+    })
+    .catch(err => alert("Error sending email: " + err.text));
+}
+
+document.getElementById("aiInput").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") getAIResponse();
+});
+</script>
+
+<script>
+function openSendMailModal() {
+  document.getElementById("sendMailModal").style.display = "block";
+  document.getElementById("mailSuccessMsg")?.remove();
+}
+
+function closeSendMailModal() {
+  document.getElementById("sendMailModal").style.display = "none";
+  document.getElementById("email").value = "";
+  document.getElementById("message").value = "";
+  document.getElementById("title").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("time").value = "";
+}
+
+function sendUserQueryEmail() {
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+  const title = document.getElementById("title").value.trim();
+  const name = document.getElementById("name").value.trim();
+  const time = document.getElementById("time").value.trim();
+
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid email.");
+    return;
+  }
+  if (!message) {
+    alert("Please enter a message.");
+    return;
+  }
+
+  const params = {
+    from_email: email,
+    to_name: "Joydev Ghosh",
+    title: title,
+    name: name,
+    time: time,
+    message: `User Email: ${email}\n\nQuery:\n${message}`,
+    to_email: "ghoshjoydev123@gmail.com",
+    reply_to: email
+  };
+
+  emailjs.send("service_0pvbpzk", "template_qdpie1q", params)
+    .then(() => {
+      const modal = document.querySelector(".modal-content");
+      const msg = document.createElement("div");
+      msg.id = "mailSuccessMsg";
+      msg.innerText = "✅ Successfully sent!";
+      modal.appendChild(msg);
+      document.getElementById("email").value = "";
+      document.getElementById("message").value = "";
+      document.getElementById("title").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("time").value = "";
+      setTimeout(() => closeSendMailModal(), 2000);
+    })
+    .catch((err) => {
+      alert("Failed to send email: " + err.text);
+    });
+}
+
+document.getElementById("emailForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  emailjs.sendForm("service_0pvbpzk", "template_qdpie1q", this)
+    .then(() => {
+      document.getElementById("mailSuccessMsg").innerText = "✅ Email sent successfully!";
+      this.reset();
+      setTimeout(() => {
+        closeSendMailModal();
+        document.getElementById("mailSuccessMsg").innerText = "";
+      }, 2000);
+    })
+    .catch((error) => {
+      alert("✅ Email sent successfully!");
+    });
+});
+</script>
+</body>
+</html>
