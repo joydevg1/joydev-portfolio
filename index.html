@@ -421,8 +421,12 @@
       <span class="skill">Computer Vision</span>
       <span class="skill">GenAI</span>
       <span class="skill">NLP</span>
-      <span class="skill">AWS</span>
-      <span class="skill">Git</span>
+      <span class="skill">Pandas</span>
+ <span class="skill">YOLO</span>
+      <span class="skill">CNN</span>
+ <span class="skill">RNN</span>
+ <span class="skill">SQL</span>
+ <span class="skill">Git</span>
     </div>
   </section>
   <section id="achievements" class="section">
@@ -442,19 +446,19 @@
       <li>Features Extraction for Network Intrusion Detection Using Genetic Algorithm (GA), <i>Modern Approaches in Machine Learning and Cognitive Science (Published)</i></li>
     </ul>
   </section>
-  
+ 
   <section id="patents" class="section">
     <h2>Patent</h2>
     <p>
       <strong>Multi-Lingual Translator Using Deep Learning Mounted on Edge Device</strong>, <italic>application_no : 202141013413, (Published 2024)</italic>
-	 </p> 
+</p>
   </section>
 
   <section id="chat" class="ai-chat">
     <h2>Ask Me Anything</h2>
     <div>
       <input type="text" id="aiInput" placeholder="e.g. What is your experience?" />
-      <button onclick="getAIResponse()">Send</button>
+      <button id="aiButton" onclick="getAIResponse()">Send</button>
     </div>
     <div id="chatHistory"></div>
     <div id="emailPrompt">
@@ -471,7 +475,7 @@
         <span onclick="closeSendMailModal()" class="close">×</span>
         <h3>Send Your Query to Joydev</h3>
         <form id="emailForm">
-          
+         
           <div class="field">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" required />
@@ -515,7 +519,7 @@ const resumeJSON = {
   "contact": {
     "email": "ghoshjoydev123@gmail.com",
     "phone": "+91 7549535543",
-    "address": "Bangalore, India",
+    "address": "Kolkata, India",
     "linkedin": "https://linkedin.com/in/joydev-ghosh-48293396/",
     "github": "https://github.com/joydevg1",
     "medium": "https://medium.com/@joydev123"
@@ -577,10 +581,10 @@ const resumeJSON = {
       "title": "ANPR and Vehicle Classification Software",
       "description": "YOLO + OpenCV for Automatic Number Plate Recognition."
     },
-	{"title": "iFarmer-App",
+{"title": "iFarmer-App",
       "description": "Developed an AI model in TensorFlow for plant disease detection, improving yield by 20%"
-	}
-	
+}
+
   ],
   "education": [
     {
@@ -705,6 +709,7 @@ function sendConversation() {
 document.getElementById("aiInput").addEventListener("keypress", function (e) {
   if (e.key === "Enter") getAIResponse();
 });
+document.getElementById("aiButton").addEventListener("click", getAIResponse);
 </script>
 
 <script>
@@ -770,7 +775,7 @@ function sendUserQueryEmail() {
 
 document.getElementById("emailForm").addEventListener("submit", function(e) {
   e.preventDefault();
-  
+ 
   emailjs.sendForm("service_0pvbpzk", "template_qdpie1q", this)
     .then(() => {
       document.getElementById("mailSuccessMsg").innerText = "✅ Email sent successfully!";
